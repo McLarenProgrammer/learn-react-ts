@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { IUser } from "../types/types";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface UserItemPageParams {
     [index: string]: string
@@ -11,6 +11,7 @@ interface UserItemPageParams {
 function UserItemPage() {
     const [user, setUser] = useState<IUser | null>(null)
     const params = useParams<UserItemPageParams>()
+    const navigate = useNavigate();
     
     useEffect(() => {
         fetchUser()
@@ -28,7 +29,7 @@ function UserItemPage() {
     return (
         <>
             <div>
-                <button>Вернуться</button>
+                <button onClick={() => navigate('/users')}>Вернуться</button>
                 <h1>Страница пользователя {user?.name}</h1>
                 <div>
                     {user?.email}
